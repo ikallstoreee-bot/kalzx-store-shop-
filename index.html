@@ -1,0 +1,746 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KALZX STORE SHOP - Premium Digital Store</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  
+  body {
+    font-family: 'Poppins', sans-serif;
+    background: #001a33;
+    color: #fff;
+    overflow-x: hidden;
+    min-height: 100vh;
+  }
+
+  /* ===== BACKGROUND BIRU MENYALA ===== */
+  .bg-animated {
+    position: fixed;
+    inset: 0;
+    z-index: -2;
+    background: radial-gradient(circle at 20% 20%, #0066ff 0%, #001a33 45%),
+                radial-gradient(circle at 80% 80%, #00aaff 0%, transparent 50%),
+                linear-gradient(135deg, #000d1a 0%, #002b55 50%, #001a33 100%);
+  }
+
+  .bg-animated::before {
+    content:'';
+    position:absolute;
+    inset:0;
+    background: 
+      radial-gradient(circle at 10% 30%, rgba(0,150,255,0.6), transparent 40%),
+      radial-gradient(circle at 90% 70%, rgba(0,200,255,0.5), transparent 40%);
+    animation: pulseGlow 6s ease-in-out infinite;
+  }
+
+  @keyframes pulseGlow {
+    0%,100% { opacity:.6; transform:scale(1); }
+    50% { opacity:1; transform:scale(1.1); }
+  }
+
+  /* Grid lines effect */
+  .grid-overlay {
+    position: fixed;
+    inset:0;
+    z-index:-1;
+    background-image: 
+      linear-gradient(rgba(0,180,255,0.06) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,180,255,0.06) 1px, transparent 1px);
+    background-size: 50px 50px;
+    pointer-events:none;
+  }
+
+  /* ===== NAVBAR ===== */
+  nav {
+    position: sticky;
+    top:0;
+    z-index: 100;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding: 15px 40px;
+    background: rgba(0,20,45,0.7);
+    backdrop-filter: blur(15px);
+    border-bottom: 1px solid rgba(0,170,255,0.3);
+    box-shadow: 0 0 30px rgba(0,150,255,0.3);
+  }
+
+  .logo {
+    font-family: 'Orbitron', sans-serif;
+    font-weight: 900;
+    font-size: 1.6rem;
+    background: linear-gradient(90deg, #00e5ff, #0066ff, #00e5ff);
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    animation: shine 3s linear infinite;
+    letter-spacing: 2px;
+    text-shadow: 0 0 20px rgba(0,200,255,0.5);
+  }
+
+  @keyframes shine {
+    to { background-position: 200% center; }
+  }
+
+  .nav-menu {
+    display:flex;
+    gap:10px;
+    align-items:center;
+    flex-wrap: wrap;
+  }
+
+  /* ===== BUTTON MEWAH ===== */
+  .btn-lux {
+    position: relative;
+    padding: 12px 28px;
+    border: none;
+    border-radius: 50px;
+    background: linear-gradient(135deg, #0066ff, #00c3ff);
+    color: #fff;
+    font-family:'Poppins',sans-serif;
+    font-weight: 600;
+    font-size: .9rem;
+    cursor: pointer;
+    transition: all .35s ease;
+    box-shadow: 0 0 15px rgba(0,150,255,0.6),
+                inset 0 0 10px rgba(255,255,255,0.15);
+    overflow: hidden;
+    text-decoration:none;
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+  }
+
+  .btn-lux::before {
+    content:'';
+    position:absolute;
+    top:0; left:-100%;
+    width:100%; height:100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+    transition: left .6s;
+  }
+
+  .btn-lux:hover::before { left:100%; }
+
+  .btn-lux:hover {
+    transform: translateY(-3px) scale(1.03);
+    box-shadow: 0 0 30px rgba(0,200,255,0.9),
+                0 0 60px rgba(0,150,255,0.5),
+                inset 0 0 15px rgba(255,255,255,0.3);
+  }
+
+  .btn-danger {
+    background: linear-gradient(135deg, #ff0055, #ff5500);
+    box-shadow: 0 0 15px rgba(255,50,50,0.6), inset 0 0 10px rgba(255,255,255,0.15);
+  }
+  .btn-danger:hover {
+    box-shadow: 0 0 30px rgba(255,50,50,0.9), 0 0 60px rgba(255,100,0,0.5);
+  }
+
+  .btn-gold {
+    background: linear-gradient(135deg, #ffd700, #ff9500);
+    color:#001a33;
+    box-shadow: 0 0 20px rgba(255,200,0,0.7), inset 0 0 10px rgba(255,255,255,0.4);
+  }
+  .btn-gold:hover {
+    box-shadow: 0 0 40px rgba(255,200,0,1), 0 0 80px rgba(255,150,0,0.6);
+  }
+
+  /* ===== HERO ===== */
+  .hero {
+    text-align:center;
+    padding: 80px 20px 60px;
+    position:relative;
+  }
+
+  .hero h1 {
+    font-family:'Orbitron',sans-serif;
+    font-size: clamp(2rem, 6vw, 4rem);
+    font-weight:900;
+    margin-bottom: 20px;
+    background: linear-gradient(90deg, #00e5ff, #fff, #00aaff, #00e5ff);
+    background-size: 300% auto;
+    -webkit-background-clip:text;
+    background-clip:text;
+    color:transparent;
+    animation: shine 4s linear infinite;
+    text-shadow: 0 0 40px rgba(0,200,255,0.6);
+    letter-spacing: 3px;
+  }
+
+  .hero p {
+    max-width: 700px;
+    margin: 0 auto 35px;
+    color: #9fd8ff;
+    font-size: 1.1rem;
+    line-height: 1.7;
+  }
+
+  .hero-glow {
+    position:absolute;
+    width:400px; height:400px;
+    background: radial-gradient(circle, rgba(0,150,255,0.4), transparent 70%);
+    border-radius:50%;
+    top:50%; left:50%;
+    transform: translate(-50%,-50%);
+    z-index:-1;
+    animation: pulseGlow 5s ease-in-out infinite;
+    filter: blur(40px);
+  }
+
+  /* ===== DASHBOARD GRID ===== */
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+
+  .section-title {
+    font-family:'Orbitron',sans-serif;
+    font-size: 1.8rem;
+    text-align:center;
+    margin: 60px 0 40px;
+    color:#00e5ff;
+    text-shadow: 0 0 20px rgba(0,200,255,0.7);
+    letter-spacing: 2px;
+  }
+
+  .dashboard {
+    display:grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px,1fr));
+    gap: 25px;
+    margin-bottom: 40px;
+  }
+
+  .card {
+    background: rgba(0,30,60,0.6);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(0,170,255,0.3);
+    border-radius: 20px;
+    padding: 30px 25px;
+    transition: all .4s ease;
+    position:relative;
+    overflow:hidden;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.1);
+  }
+
+  .card::before {
+    content:'';
+    position:absolute;
+    top:0; left:0; right:0;
+    height: 3px;
+    background: linear-gradient(90deg, #00e5ff, #0066ff, #00e5ff);
+    background-size: 200% auto;
+    animation: shine 2s linear infinite;
+  }
+
+  .card:hover {
+    transform: translateY(-8px);
+    border-color: #00c3ff;
+    box-shadow: 0 0 40px rgba(0,180,255,0.5), 0 8px 32px rgba(0,0,0,0.4);
+  }
+
+  .card-icon {
+    font-size: 2.5rem;
+    margin-bottom: 15px;
+    background: linear-gradient(135deg,#00e5ff,#0066ff);
+    -webkit-background-clip:text;
+    background-clip:text;
+    color:transparent;
+    filter: drop-shadow(0 0 10px rgba(0,200,255,0.7));
+  }
+
+  .card h3 {
+    font-family:'Orbitron',sans-serif;
+    color:#fff;
+    margin-bottom: 10px;
+    font-size:1.15rem;
+  }
+
+  .card p {
+    color:#8fc9f0;
+    font-size:.9rem;
+    line-height:1.6;
+    margin-bottom: 18px;
+  }
+
+  .stat {
+    font-family:'Orbitron',sans-serif;
+    font-size:1.6rem;
+    font-weight:900;
+    color:#00e5ff;
+    text-shadow: 0 0 15px rgba(0,200,255,0.7);
+    margin-bottom: 15px;
+  }
+
+  /* ===== APK LIST ===== */
+  .apk-grid {
+    display:grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px,1fr));
+    gap: 25px;
+  }
+
+  .apk-card {
+    background: linear-gradient(145deg, rgba(0,40,80,0.7), rgba(0,20,50,0.7));
+    border:1px solid rgba(0,170,255,0.3);
+    border-radius: 20px;
+    padding: 25px;
+    text-align:center;
+    transition:.4s;
+    backdrop-filter: blur(10px);
+    position:relative;
+  }
+
+  .apk-card:hover {
+    transform: scale(1.03);
+    border-color:#00e5ff;
+    box-shadow: 0 0 35px rgba(0,200,255,0.6);
+  }
+
+  .apk-icon {
+    width:70px; height:70px;
+    margin:0 auto 18px;
+    border-radius:18px;
+    background: linear-gradient(135deg,#0066ff,#00e5ff);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:2rem;
+    box-shadow: 0 0 25px rgba(0,180,255,0.8);
+  }
+
+  .apk-card h4 {
+    font-family:'Orbitron',sans-serif;
+    font-size:1.2rem;
+    margin-bottom:8px;
+    color:#fff;
+  }
+
+  .apk-desc {
+    color:#8fc9f0;
+    font-size:.85rem;
+    margin-bottom:15px;
+    line-height:1.5;
+  }
+
+  .price {
+    font-family:'Orbitron',sans-serif;
+    font-size:1.4rem;
+    font-weight:900;
+    color:#ffd700;
+    text-shadow: 0 0 15px rgba(255,200,0,0.6);
+    margin-bottom:18px;
+  }
+
+  .badge {
+    position:absolute;
+    top:15px; right:15px;
+    background: linear-gradient(135deg,#ff0055,#ff5500);
+    color:#fff;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size:.7rem;
+    font-weight:700;
+    box-shadow: 0 0 15px rgba(255,50,50,0.7);
+  }
+
+  /* ===== SPAM TOOLS ===== */
+  .tools-section {
+    background: rgba(0,20,50,0.6);
+    border:1px solid rgba(0,170,255,0.3);
+    border-radius: 25px;
+    padding: 40px;
+    backdrop-filter: blur(15px);
+    margin-bottom: 40px;
+    box-shadow: 0 0 40px rgba(0,100,255,0.2);
+  }
+
+  .tool-box {
+    display:grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px,1fr));
+    gap:25px;
+  }
+
+  .tool-item {
+    background: linear-gradient(145deg, rgba(0,50,100,0.5), rgba(0,20,50,0.5));
+    border:1px solid rgba(0,150,255,0.4);
+    border-radius:18px;
+    padding:25px;
+    transition:.3s;
+  }
+
+  .tool-item:hover {
+    border-color:#00e5ff;
+    box-shadow:0 0 25px rgba(0,200,255,0.4);
+  }
+
+  .tool-item h4 {
+    font-family:'Orbitron',sans-serif;
+    color:#00e5ff;
+    margin-bottom:12px;
+    display:flex;
+    align-items:center;
+    gap:10px;
+    font-size:1.05rem;
+  }
+
+  .tool-item p {
+    color:#8fc9f0;
+    font-size:.85rem;
+    margin-bottom:15px;
+    line-height:1.5;
+  }
+
+  .input-field {
+    width:100%;
+    padding: 12px 18px;
+    border-radius: 50px;
+    border:1px solid rgba(0,170,255,0.4);
+    background: rgba(0,10,30,0.7);
+    color:#fff;
+    font-family:'Poppins',sans-serif;
+    margin-bottom:12px;
+    outline:none;
+    transition:.3s;
+    font-size:.9rem;
+  }
+
+  .input-field:focus {
+    border-color:#00e5ff;
+    box-shadow: 0 0 20px rgba(0,200,255,0.5);
+  }
+
+  .input-field::placeholder { color:#5a8fb5; }
+
+  /* ===== CONTACT ===== */
+  .contact-section {
+    text-align:center;
+    padding: 60px 20px;
+    background: linear-gradient(135deg, rgba(0,50,100,0.5), rgba(0,20,50,0.5));
+    border-radius: 30px;
+    border:1px solid rgba(0,170,255,0.3);
+    margin-bottom: 50px;
+    position:relative;
+    overflow:hidden;
+  }
+
+  .contact-section::before {
+    content:'';
+    position:absolute;
+    inset:0;
+    background: radial-gradient(circle at 50% 50%, rgba(0,150,255,0.2), transparent 70%);
+    pointer-events:none;
+  }
+
+  .contact-section h2 {
+    font-family:'Orbitron',sans-serif;
+    color:#00e5ff;
+    margin-bottom:15px;
+    font-size:1.8rem;
+    text-shadow:0 0 20px rgba(0,200,255,0.7);
+  }
+
+  .contact-section p {
+    color:#9fd8ff;
+    margin-bottom:25px;
+  }
+
+  .wa-btn {
+    display:inline-flex;
+    align-items:center;
+    gap:12px;
+    padding: 16px 40px;
+    background: linear-gradient(135deg,#25D366,#128C7E);
+    border-radius: 50px;
+    color:#fff;
+    text-decoration:none;
+    font-weight:700;
+    font-size:1.1rem;
+    box-shadow: 0 0 30px rgba(37,211,102,0.7);
+    transition:.35s;
+    position:relative;
+    overflow:hidden;
+  }
+
+  .wa-btn:hover {
+    transform: translateY(-4px) scale(1.05);
+    box-shadow: 0 0 50px rgba(37,211,102,1), 0 0 80px rgba(37,211,102,0.5);
+  }
+
+  .wa-btn i { font-size:1.5rem; }
+
+  /* ===== FOOTER ===== */
+  footer {
+    text-align:center;
+    padding: 30px 20px;
+    border-top:1px solid rgba(0,170,255,0.2);
+    color:#5a8fb5;
+    font-size:.85rem;
+  }
+
+  footer span { color:#00e5ff; }
+
+  /* ===== NOTIF ===== */
+  .notif {
+    position: fixed;
+    top: 90px; right: 20px;
+    background: linear-gradient(135deg,#0066ff,#00c3ff);
+    color:#fff;
+    padding: 15px 25px;
+    border-radius: 15px;
+    box-shadow: 0 0 30px rgba(0,200,255,0.8);
+    font-weight:600;
+    transform: translateX(400px);
+    transition: .5s;
+    z-index: 999;
+    display:flex;
+    align-items:center;
+    gap:10px;
+  }
+
+  .notif.show { transform: translateX(0); }
+
+  /* Mobile */
+  @media(max-width:768px){
+    nav { padding: 12px 15px; flex-direction:column; gap:12px; }
+    .nav-menu { justify-content:center; }
+    .btn-lux { padding: 10px 20px; font-size:.8rem; }
+    .hero { padding: 50px 15px 40px; }
+    .tools-section { padding: 25px 15px; }
+  }
+
+  /* Scroll reveal */
+  .reveal { opacity:0; transform: translateY(30px); transition: all .8s ease; }
+  .reveal.active { opacity:1; transform: translateY(0); }
+</style>
+</head>
+<body>
+
+<div class="bg-animated"></div>
+<div class="grid-overlay"></div>
+
+<!-- NAVBAR -->
+<nav>
+  <div class="logo"><i class="fas fa-bolt"></i> NEXUS STORE</div>
+  <div class="nav-menu">
+    <a href="#dashboard" class="btn-lux"><i class="fas fa-chart-line"></i> Dashboard</a>
+    <a href="#apk" class="btn-lux"><i class="fas fa-download"></i> Buy APK</a>
+    <a href="#tools" class="btn-lux"><i class="fas fa-tools"></i> Tools</a>
+    <a href="#contact" class="btn-lux"><i class="fas fa-headset"></i> Contact</a>
+    <button class="btn-lux btn-danger" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Logout</button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-glow"></div>
+  <h1>NEXUS STORE</h1>
+  <p>Premium Digital Store — Beli APK premium, akses tools spam eksklusif, dan nikmati layanan dashboard canggih dengan teknologi terdepan. Semua dalam satu platform mewah.</p>
+  <a href="#apk" class="btn-lux btn-gold"><i class="fas fa-crown"></i> Mulai Belanja</a>
+</section>
+
+<div class="container">
+
+  <!-- DASHBOARD -->
+  <h2 class="section-title reveal" id="dashboard"><i class="fas fa-chart-line"></i> DASHBOARD</h2>
+  <div class="dashboard">
+    <div class="card reveal">
+      <div class="card-icon"><i class="fas fa-wallet"></i></div>
+      <h3>Saldo Anda</h3>
+      <div class="stat">Rp 250.000</div>
+      <p>Saldo aktif untuk pembelian APK & tools premium.</p>
+      <button class="btn-lux" onclick="notif('Top up berhasil dibuka!')"><i class="fas fa-plus"></i> Top Up</button>
+    </div>
+
+    <div class="card reveal">
+      <div class="card-icon"><i class="fas fa-shopping-bag"></i></div>
+      <h3>Total Order</h3>
+      <div class="stat">12</div>
+      <p>Transaksi sukses dalam 30 hari terakhir.</p>
+      <button class="btn-lux" onclick="notif('Riwayat order dibuka!')"><i class="fas fa-history"></i> Riwayat</button>
+    </div>
+
+    <div class="card reveal">
+      <div class="card-icon"><i class="fas fa-crown"></i></div>
+      <h3>Status Member</h3>
+      <div class="stat" style="color:#ffd700;">PREMIUM</div>
+      <p>Akses semua fitur eksklusif & tools spam unlimited.</p>
+      <button class="btn-lux btn-gold" onclick="notif('Anda sudah PREMIUM!')"><i class="fas fa-star"></i> Detail</button>
+    </div>
+
+    <div class="card reveal">
+      <div class="card-icon"><i class="fas fa-clock"></i></div>
+      <h3>Masa Aktif</h3>
+      <div class="stat">365 Hari</div>
+      <p>Langganan premium aktif sampai tahun depan.</p>
+      <button class="btn-lux" onclick="notif('Perpanjang langganan!')"><i class="fas fa-sync"></i> Perpanjang</button>
+    </div>
+  </div>
+
+  <!-- BUY APK -->
+  <h2 class="section-title reveal" id="apk"><i class="fas fa-download"></i> BUY APK PREMIUM</h2>
+  <div class="apk-grid">
+    <div class="apk-card reveal">
+      <div class="badge">HOT</div>
+      <div class="apk-icon"><i class="fas fa-robot"></i></div>
+      <h4>Auto Script Pro</h4>
+      <p class="apk-desc">APK otomatisasi premium dengan fitur lengkap, anti-banned, dan update berkala.</p>
+      <div class="price">Rp 75.000</div>
+      <button class="btn-lux" onclick="buy('Auto Script Pro',75000)"><i class="fas fa-shopping-cart"></i> Beli Sekarang</button>
+    </div>
+
+    <div class="apk-card reveal">
+      <div class="badge">NEW</div>
+      <div class="apk-icon"><i class="fas fa-shield-halved"></i></div>
+      <h4>VPN Ultra Secure</h4>
+      <p class="apk-desc">VPN premium unlimited bandwidth, server global, dan keamanan tingkat tinggi.</p>
+      <div class="price">Rp 50.000</div>
+      <button class="btn-lux" onclick="buy('VPN Ultra Secure',50000)"><i class="fas fa-shopping-cart"></i> Beli Sekarang</button>
+    </div>
+
+    <div class="apk-card reveal">
+      <div class="apk-icon"><i class="fas fa-camera"></i></div>
+      <h4>Photo Editor X</h4>
+      <p class="apk-desc">Editor foto premium dengan AI, filter eksklusif, dan tanpa watermark.</p>
+      <div class="price">Rp 60.000</div>
+      <button class="btn-lux" onclick="buy('Photo Editor X',60000)"><i class="fas fa-shopping-cart"></i> Beli Sekarang</button>
+    </div>
+
+    <div class="apk-card reveal">
+      <div class="badge">PROMO</div>
+      <div class="apk-icon"><i class="fas fa-music"></i></div>
+      <h4>Music Premium++</h4>
+      <p class="apk-desc">Streaming musik tanpa iklan, download offline, kualitas audio HD.</p>
+      <div class="price">Rp 45.000</div>
+      <button class="btn-lux btn-gold" onclick="buy('Music Premium++',45000)"><i class="fas fa-shopping-cart"></i> Beli Sekarang</button>
+    </div>
+  </div>
+
+  <!-- TOOLS SPAM -->
+  <h2 class="section-title reveal" id="tools"><i class="fas fa-tools"></i> TOOLS SPAM</h2>
+  <div class="tools-section reveal">
+    <div class="tool-box">
+      <div class="tool-item">
+        <h4><i class="fas fa-comment-sms"></i> Spam SMS</h4>
+        <p>Kirim SMS massal ke nomor target dengan sistem anti-limit terbaru.</p>
+        <input type="text" class="input-field" id="smsTarget" placeholder="Masukkan nomor target (62xxx)">
+        <input type="number" class="input-field" id="smsCount" placeholder="Jumlah kirim (max 100)">
+        <button class="btn-lux" style="width:100%;justify-content:center;" onclick="spamSMS()"><i class="fas fa-paper-plane"></i> Jalankan Spam</button>
+      </div>
+
+      <div class="tool-item">
+        <h4><i class="fab fa-whatsapp"></i> Spam WhatsApp</h4>
+        <p>Tools spam pesan WA dengan delay acak, aman dari blokir sementara.</p>
+        <input type="text" class="input-field" id="waTarget" placeholder="Masukkan nomor WA target (62xxx)">
+        <input type="number" class="input-field" id="waCount" placeholder="Jumlah pesan (max 50)">
+        <button class="btn-lux" style="width:100%;justify-content:center;" onclick="spamWA()"><i class="fab fa-whatsapp"></i> Jalankan Spam</button>
+      </div>
+
+      <div class="tool-item">
+        <h4><i class="fas fa-phone-volume"></i> Spam Call</h4>
+        <p>Panggilan otomatis ke nomor target dengan sistem suara acak.</p>
+        <input type="text" class="input-field" id="callTarget" placeholder="Masukkan nomor target (62xxx)">
+        <input type="number" class="input-field" id="callCount" placeholder="Jumlah panggilan (max 20)">
+        <button class="btn-lux" style="width:100%;justify-content:center;" onclick="spamCall()"><i class="fas fa-phone"></i> Jalankan Spam</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- CONTACT -->
+  <h2 class="section-title reveal" id="contact"><i class="fas fa-headset"></i> CONTACT ADMIN</h2>
+  <div class="contact-section reveal">
+    <h2>Butuh Bantuan?</h2>
+    <p>Hubungi admin kami untuk pertanyaan, custom order, atau kendala teknis. Respon cepat 24/7.</p>
+    <a href="https://wa.me/6288388184297?text=Halo%20Admin%20Nexus%20Store,%20saya%20butuh%20bantuan" target="_blank" class="wa-btn">
+      <i class="fab fa-whatsapp"></i> Chat Admin: 6288388184297
+    </a>
+    <p style="margin-top:25px;font-size:.85rem;color:#5a8fb5;">
+      <i class="fas fa-clock"></i> Online 24 Jam &nbsp; | &nbsp; <i class="fas fa-shield-alt"></i> Aman & Terpercaya
+    </p>
+  </div>
+
+</div>
+
+<footer>
+  <p>&copy; 2025 <span>NEXUS STORE</span> — Premium Digital Store. All rights reserved.</p>
+  <p style="margin-top:8px;">Dibuat dengan <i class="fas fa-heart" style="color:#ff0055;"></i> untuk pengalaman premium</p>
+</footer>
+
+<!-- NOTIF -->
+<div class="notif" id="notif"><i class="fas fa-check-circle"></i> <span id="notifText">Berhasil!</span></div>
+
+<script>
+  // ===== NOTIF FUNCTION =====
+  function notif(msg) {
+    const n = document.getElementById('notif');
+    document.getElementById('notifText').textContent = msg;
+    n.classList.add('show');
+    setTimeout(() => n.classList.remove('show'), 3000);
+  }
+
+  // ===== BUY APK =====
+  function buy(name, price) {
+    notif('✅ ' + name + ' berhasil ditambahkan! (Rp ' + price.toLocaleString('id-ID') + ')');
+  }
+
+  // ===== SPAM TOOLS =====
+  function spamSMS() {
+    const target = document.getElementById('smsTarget').value;
+    const count = document.getElementById('smsCount').value;
+    if (!target || !count) { notif('⚠️ Isi nomor & jumlah dulu!'); return; }
+    if (count > 100) { notif('⚠️ Max 100 SMS!'); return; }
+    notif('📨 Spam SMS ke ' + target + ' sebanyak ' + count + 'x dijalankan!');
+  }
+
+  function spamWA() {
+    const target = document.getElementById('waTarget').value;
+    const count = document.getElementById('waCount').value;
+    if (!target || !count) { notif('⚠️ Isi nomor & jumlah dulu!'); return; }
+    if (count > 50) { notif('⚠️ Max 50 pesan!'); return; }
+    notif('💬 Spam WA ke ' + target + ' sebanyak ' + count + 'x dijalankan!');
+  }
+
+  function spamCall() {
+    const target = document.getElementById('callTarget').value;
+    const count = document.getElementById('callCount').value;
+    if (!target || !count) { notif('⚠️ Isi nomor & jumlah dulu!'); return; }
+    if (count > 20) { notif('⚠️ Max 20 panggilan!'); return; }
+    notif('📞 Spam Call ke ' + target + ' sebanyak ' + count + 'x dijalankan!');
+  }
+
+  // ===== LOGOUT =====
+  function logout() {
+    if (confirm('Yakin mau logout dari NEXUS STORE?')) {
+      notif('👋 Logout berhasil! Sampai jumpa!');
+      setTimeout(() => {
+        document.body.style.opacity = '0.5';
+        document.body.style.transition = '1s';
+      }, 500);
+    }
+  }
+
+  // ===== SCROLL REVEAL =====
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) e.target.classList.add('active');
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  // ===== SMOOTH SCROLL =====
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      e.preventDefault();
+      document.querySelector(a.getAttribute('href')).scrollIntoView({ behavior: 'smooth' });
+    });
+  });
+</script>
+
+</body>
+</html>
